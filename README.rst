@@ -26,4 +26,9 @@ Many thanks to
 * Vianney Da Costa
 
 
+Contact
+--------------
+For any question, please contact Boris Dayma at boris.dayma@gmail.com
+
+
 Copyright 2014, Boris Dayma

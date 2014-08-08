@@ -1,8 +1,23 @@
-'''
-Administrator functions for database
+'''Administrator functions for database management'''
 
-Copyright 2014 Boris Dayma
-'''
+# Copyright 2014 Boris Dayma
+# 
+# This file is part of GridCompute.
+# 
+# GridCompute is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# GridCompute is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+#
+# For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
 
 import pymongo

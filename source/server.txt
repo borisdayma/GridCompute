@@ -1,1 +1,1 @@
-/home/boris/Dropbox/Projects/gridcompute/template/Shared_Folder
+C:\...\Shared_Folder

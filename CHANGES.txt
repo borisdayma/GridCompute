@@ -1,1 +1,2 @@
-v1.0, TBC -- Initial release.
+v0.2, 8-Aug-14
+ -- Initial release.
