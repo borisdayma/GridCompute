@@ -1,0 +1,4 @@
+mongodb server: localhost:27017
+user group: default_grid
+password: gridcompute
+instance: 0
