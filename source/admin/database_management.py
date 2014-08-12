@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
