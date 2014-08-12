@@ -16,7 +16,7 @@ Gridcompute is easy to setup and adapt to any application. Only a shared folder 
 
 Documentation
 -------------
-Documentation is available at TBC.
+Documentation is available at http://gridcompute.readthedocs.org/.
 
 
 Many thanks to
