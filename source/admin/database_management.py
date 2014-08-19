@@ -24,22 +24,23 @@ import pymongo
 
 
 def set_up_mongodb_server(mongodb_server, login, password, versions):
-    '''Sets up a mongodb server for GridCompute.
-
-    Mongo database "gridcompute" is set up to be ready for use by creating "versions" collection and indexes.
-    The "gridcompute" database must be present on the server. Any collection in it will be removed.
-
-    Args:
-        mongodb_server: Address of the mongo instance including connection port containing
-                      "gridcompute" database.
-                      Example: 'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
-        login: Login used to connect on mongo database.
-        password: Password used to connect on mongo database.
-        versions: List of versions of gridcompute that the mongo database recognizes defined by
-                _id: version number (ex: '0.1')
-                status: either "allowed", "warning" or "refused"
-                message: message to be displayed when status is not "allowed"
-                example: [{'_id':'0.1', status:"warning", message:"this is a beta version used for test purposes only"}, {'_id':'1.0', status:"allowed"}]
+    '''
+|    Sets up a mongodb server for GridCompute.
+|
+|    Mongo database "gridcompute" is set up to be ready for use by creating "versions" collection and indexes.
+|    The "gridcompute" database must be present on the server. Any collection in it will be removed.
+|
+|    Args:
+|        mongodb_server: Address of the mongo instance including connection port containing
+|                      "gridcompute" database.
+|                      Example: 'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
+|        login: Login used to connect on mongo database.
+|        password: Password used to connect on mongo database.
+|        versions: List of versions of gridcompute that the mongo database recognizes defined by:
+|                _id: version number (ex: '0.1')
+|                status: either "allowed", "warning" or "refused"
+|                message: message to be displayed when status is not "allowed"
+|                example: [{'_id':'0.1', status:"warning", message:"this is a beta version used for test purposes only"}, {'_id':'1.0', status:"allowed"}]
     '''
 
     # create new connection

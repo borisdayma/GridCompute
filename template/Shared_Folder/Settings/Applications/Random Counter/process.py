@@ -1,4 +1,4 @@
-'''Template for processing cases received from the grid'''
+'''This script is used to process cases. Its input is the ordered list of files submitted in *send.py* script. At the end of execution, a list of output files is returned, which is submitted to the server.'''
 
 # Copyright 2014 Boris Dayma
 # 

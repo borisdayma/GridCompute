@@ -1,2 +1,0 @@
-Deployment of MongoDB server
-****************************

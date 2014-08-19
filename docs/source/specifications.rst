@@ -21,16 +21,20 @@ This shared folder has following architecture:
 
 - *Settings* folder (to be at least read-only for users, read-write for administrators)
 
+  .. _software_per_machine_specs:
+
   - Software_Per_Machine.csv: This file contains machine names and corresponding applications installed (using unique ID per application). The program looks for the *1* in the matrix.
 
       Ex::
 
-        Machine name,Software 1 v2.3,Software 2 v1.0,Software 2 v1.1
+        Machine name,Software 1,Software 2,Software 3
         Machine 1,1,1,1
         Machine 2,0,1,0
         Machine 3,0,0,0
 
     .. note:: This file is only used to evaluate what machine can run *process* functions. All machines can submit or receive cases.
+
+  .. _settings_specs:
 
   - settings.txt: contains parameters of database on each line under the form: "parameter name: value". Parameters to define are the following:
 
@@ -97,16 +101,73 @@ GridCompute communicates with a mongo database that contains all the details on 
 Application-specific scripts
 ****************************
 
-Applications can easily take advantage of distributed computing by creating 3 scripts:
+Applications can easily take advantage of distributed computing by creating 3 scripts, as detailed in following sections.
 
-- send.py: this script is executed when submitting cases to server. It takes as input a file selected by user and returns one or several cases to submit to the server. Each case contains one or several input files necessary to process the case.
-- process.py: this script is executed in a temporary folder. Its input is the (ordered) list of files submitted in “send.py” script. At the end of execution, a list of output files is returned, which is submitted to the server and the temporary folder is deleted.
 - receive.py: this script is executed in a temporary folder. Its input is the (ordered) list of output files returned in “process.py” script. At the end of execution, the temporary folder is deleted.
 
-TODO: Subsections need to be added by including source code documentation of modules with autodoc.
+Some examples are present in *template/Shared_Folder/Settings/Applications*.
+
+
+send.py
+-------
+
+.. automodule:: send
+   :members:
+
+process.py
+----------
+
+.. automodule:: process
+   :members:
+
+receive.py
+----------
+
+.. automodule:: receive
+   :members:
 
 
 Code layout
 ***********
+
+The source code of *GridCompute* is split into a few modules.
+
+
+main.py
+-------
+
+.. automodule:: main
+   :members:
+
+g_config.py
+-----------
+
+.. automodule:: g_config
+   :members:
+
+g_interface.py
+--------------
+
+.. automodule:: g_interface
+   :members:
+
+g_server_management.py
+----------------------
+
+.. automodule:: g_server_management
+   :members:
+
+database_management.py
+----------------------
+
+.. automodule:: database_management
+   :members:
+
+setup.py
+--------
+.. automodule:: setup
+   :members:
+
+TODO: Talk about server_template. 
 
 TODO: This section needs to be completed by including source code documentation with autodoc.

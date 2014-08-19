@@ -30,7 +30,8 @@ import psutil
 import datetime
 
 def start(gui, current_pid):
-    '''Start program
+    '''
+    Start program
     
     Args:
         gui: GUI instance handling program interface

@@ -1,4 +1,4 @@
-'''Template for sending cases to the grid'''
+'''This script is executed when submitting cases to server. It takes as input a file selected by the user and returns one or several cases to submit to the server.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -23,14 +23,14 @@
 def select_input_files(filepath):
     """Submit a case to the grid.
     
-    This function returns from a selected file a list of cases to run. Each case can be made
+    This function returns, from a selected file, one or several cases to run. Each case can be made
     of several input files.
     
     Args:
         filepath: path of the file selected
         
     Returns:
-        An list of cases. Each case is a list (or tuple) input files required to process a case
+        A list of cases. Each case is a list (or tuple) of input files required to process a case
     """
 
     # In this example, only one case is returned, and that case contains only one file (the file selected)

@@ -6,11 +6,11 @@
 Welcome to GridCompute's documentation!
 =======================================
 
+.. include:: ../../README.rst
+
 
 Contents
 ********
-
-.. include:: ../../README.rst
 
 .. toctree::
    :maxdepth: 2
@@ -19,5 +19,5 @@ Contents
    tutorial
    specifications
    development
-   deployment
+   license
 

@@ -1,4 +1,4 @@
-'''Template for receiving cases that have been processed on the grid'''
+'''This script is used to receive cases that have been processed, ie to specify what we want to do with the output files returned from *process.py* script.'''
 
 # Copyright 2014 Boris Dayma
 # 

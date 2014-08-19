@@ -1,6 +1,6 @@
 Summary
 *******
-GridCompute is a cross-platform tool that implements quickly distributed computing over a local grid. 
+GridCompute is an open-source cross-platform tool that implements quickly distributed computing over a local grid. 
 
 
 Useful links
@@ -9,6 +9,8 @@ Useful links
     http://gridcompute.readthedocs.org.
 :Source code:
     http://github.com/borisd13/GridCompute.
+:Binaries:
+    https://github.com/borisd13/GridCompute/releases.
 
 
 Many thanks to

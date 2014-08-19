@@ -48,12 +48,15 @@ GridCompute is meant to be run easily on computers that don't have any installat
 To build the application:
 
 #. Use the OS you plan to build the application for
+
 #. Install `cx_Freeze from source <https://bitbucket.org/anthony_tuininga/cx_freeze/src>`_
-     | **Note:**
-     | On Ubuntu, you might need to apply fix for `issue 32 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/32/cant-compile-cx_freeze-in-ubuntu-1304#comment-11181579>`_
-     | On Windows, you may have to install Visual Studio C++ 2010
+
+   .. warning:: | On Ubuntu, you might need to apply fix for `issue 32 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/32/cant-compile-cx_freeze-in-ubuntu-1304#comment-11181579>`_
+                | On Windows, you may have to install Visual Studio C++ 2010
+
 #. Go to main folder of GridCompute source code and run ``python setup.py build``
-     **Note:** On Ubuntu, you will also need to apply fix for `issue 95 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/95/>`_
+
+   .. warning:: On Ubuntu, you will also need to apply fix for `issue 95 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/95/>`_
 
 
 Build documentation
@@ -68,6 +71,5 @@ Documentation is generated through the use of `sphinx <http://sphinx-doc.org/>`_
 Execute application
 *******************
 
-From source, run **python 3** on *main.py*.
-
-From executable, just run *GridCompute* executable.
+| From source, run **python 3** on *main.py*.
+| From executable, just run *GridCompute* executable.
