@@ -1,7 +1,7 @@
 Source code layout
 ==================
 
-The source code of *GridCompute* is split into a few modules.
+The source code of *GridCompute* is split into following modules:
 
 
 main.py
@@ -38,4 +38,5 @@ database_management.py
 
 .. automodule:: database_management
    :members:
+
 

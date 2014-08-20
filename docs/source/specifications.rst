@@ -14,8 +14,7 @@ The sequence of events is represented with numbered arrows herebelow:
 Architecture of shared folder
 *****************************
 
-In the same folder as main script or program, there is a file named "server.txt" which contains only the network path of main shared folder between all users used by GridCompute (folder that contains "Settings", "Cases" and "Results").
-  Ex: "\\\\Server010\\Folder\\GridCompute"
+In the same folder as main script or program, there is a file named "server.txt" which contains only the network path of main shared folder between all users used by GridCompute (folder that contains "Settings", "Cases" and "Results"). Ex: ``\\Server010\\Folder\\GridCompute``.
 
 This shared folder has following architecture:
 
@@ -32,19 +31,19 @@ This shared folder has following architecture:
         Machine 2,0,1,0
         Machine 3,0,0,0
 
-    .. note:: This file is only used to evaluate what machine can run *process* functions. All machines can submit or receive cases.
+    .. note:: This file is only used to detect what machine can run *process* functions. All machines can submit or receive cases.
 
   .. _settings_specs:
 
-  - settings.txt: contains parameters of database on each line under the form: "parameter name: value". Parameters to define are the following:
+  - settings.txt: contains parameters of database on each line under the form: ``parameter name: value``. Parameters to define are the following:
 
     - mongodb server: address of the mongo instance including connection port containing gridcompute database
 
-        Ex:  'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
+        Ex: ``mongodbserver.com:888`` or ``10.0.0.1:888`` or ``Machine123:888``
 
-    - user group: login used to connect on mongo database
-    - password: password used to connect on mongo database
-    - instance: data instance to consider. Example: "0" or "debug"
+    - user group: Login used to connect on mongo database.
+    - password: Password used to connect on mongo database.
+    - instance: Data instance to consider. Example: ``0`` or ``debug``.
 
   - *Applications* folder
 
@@ -54,16 +53,16 @@ This shared folder has following architecture:
 
       It contains:
 
-      - send.py: defines how to select input and send calculations.
-      - process.py: function will run when analysis are executed based on input received and will create output files.
-      - receive.py: function will run when output files are present on server.
+      - send.py: Defines how to select input and send calculations.
+      - process.py: Will run when analysis are executed based on input received and will create output files.
+      - receive.py: Will run when output files are present on server.
 
-      More details are provided in `Application-specific scripts`_
+      More details are provided in `Application-specific scripts`_.
 
 
-- *Cases* folder: Contains one folder per user and inside, one folder per machine (so that user can see easily his files) storing each case study as a zip file containing all files/folders required.
+- *Cases* folder: Contains one folder per user and inside, one folder per machine (so that user can see easily his files) storing each case  as a zip file that has all input files/folders required.
 
-- *Results* folder: Contains one folder per user and inside, one folder per machine storing each result as a zip file containing all files/folders required.
+- *Results* folder: Contains one folder per user and inside, one folder per machine storing each result as a zip file that has all output files/folders required.
 
 .. note:: A template folder is present in source code in *template* folder and can be used to set up the shared folder.
 
@@ -75,36 +74,39 @@ GridCompute communicates with a mongo database that contains all the details on 
 
 - collection *cases*
 
-  * _id: unique Object Id based on timestamp of the case
-  * user_group: example "ENGINEERING DEPARTMENT"
-  * instance: example "0" or "debug"
-  * status: "to process", "processing", "processed", "received"
-  * last_heartbeat: heartbeat are sent on running process to notify database that they are still alive
-  * application: application associated to the case
-  * path: path location of case
-  * origin
+  * _id: Unique Object Id based on timestamp of the case.
+  * user_group: User group. Ex: ``ENGINEERING DEPARTMENT``.
+  * instance: Instance used to isolate grids. Ex: ``0`` or ``debug``.
+  * status: Current status of the case. It can be ``to process``, ``processing``, ``processed`` or ``received``.
+  * last_heartbeat: Timestamp of last heartbeat sent to notify the database that the process is still alive.
+  * application: Application associated to the case.
+  * path: Path on file server refering to input/output case.
+  * origin: Machine/User who submitted the case to the database.
 
     - machine
     - user
     - time
 
-      * start: time case has been submitted to server
-      * end: time results have been retrieved from server
+      * start: Time the case has been submitted to server.
+      * end: Time the results have been retrieved from server.
 
   * processors
 
-    - processor_list: list of processors (if some attempts to process failed)
+    - processor_list: List of Machine/Users who tried to process the case  (some attempts to process may have failed).
 
       * machine
       * user
 
     - time (start and end) for the last attempt to process
 
+      * start: Time of the last attempt to process.
+      * end: Time the process returned.
+
 - collection *versions* (optional)
 
-  * _id: versions of program recognized by database
-  * status: "allowed", "warning" or "refused"
-  * message: message to be displayed when status is not "allowed"
+  * _id: Versions of program recognized by database.
+  * status: Can be either ``allowed``, ``warning`` or ``refused``.
+  * message: Message to be displayed when status is not ``allowed``.
 
 
 Application-specific scripts
@@ -138,4 +140,5 @@ Main code layout
 ****************
 
 For details on *GridCompute* source code layout,  refer to :doc:`code`.
+
 

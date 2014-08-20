@@ -41,28 +41,28 @@ Follow below instructions:
 Build application
 *****************
 
-GridCompute is meant to be run easily on computers that don't have any installation on python. This is achieved by creating binaries of the application with the help of `cx_Freeze <http://cx-freeze.sourceforge.net/>`_.
+GridCompute is meant to be run easily on computers that don't have any python environment. This is achieved by creating binaries of the application with the help of `cx_Freeze <http://cx-freeze.sourceforge.net/>`_.
 
 .. note:: Building the application is not required for executing the program.
 
 To build the application:
 
-#. Use the OS you plan to build the application for
+#. Use the OS you plan to build the application for.
 
-#. Install `cx_Freeze from source <https://bitbucket.org/anthony_tuininga/cx_freeze/src>`_
+#. Install `cx_Freeze from source <https://bitbucket.org/anthony_tuininga/cx_freeze/src>`_.
 
-   .. warning:: | On Ubuntu, you might need to apply fix for `issue 32 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/32/cant-compile-cx_freeze-in-ubuntu-1304#comment-11181579>`_
-                | On Windows, you may have to install Visual Studio C++ 2010
+   .. warning:: | On Ubuntu, you might need to apply fix for `issue 32 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/32/cant-compile-cx_freeze-in-ubuntu-1304#comment-11181579>`_.
+                | On Windows, you may have to install Visual Studio C++ 2010.
 
-#. Go to main folder of GridCompute source code and run ``python setup.py build``
+#. Go to the main folder of GridCompute source code and run ``python setup.py build``.
 
-   .. warning:: On Ubuntu, you will also need to apply fix for `issue 95 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/95/>`_
+   .. warning:: On Ubuntu, you will also need to apply fix for `issue 95 <https://bitbucket.org/anthony_tuininga/cx_freeze/issue/95/>`_.
 
 
 Build documentation
 *******************
 
-Documentation is generated through the use of `sphinx <http://sphinx-doc.org/>`_. To build documentation, you need to install following requirements:
+Documentation is generated through the use of `sphinx <http://sphinx-doc.org/>`_. To build documentation, you need to install following dependencies:
 
 >>> pip3 install sphinx
 >>> pip3 install sphinxcontrib-napoleon
@@ -74,5 +74,8 @@ You can then go to *docs* folder and run ``make html``.
 Execute application
 *******************
 
-| From source, run **python 3** on *main.py*.
-| From executable, just run *GridCompute* executable.
+From source, run **python 3** on *main.py*.
+
+From executable, run *GridCompute* executable.
+ 
+ 

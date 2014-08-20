@@ -2,10 +2,11 @@ Tutorial
 ========
 
 .. note:: This section only intends to give a quick presentation of GridCompute through the
-          use of a (not very useful) demo application *Random Counter*. This application takes a file as input,
-          performs a countdown from a random number, and returns the time needed for that countdown, along with
-          the name of the input file. This output is then added to a file in the home directory of the person
-          who requested the process.
+          use of a very simple demo application *Random Counter*.
+          
+          This application takes a file as input, performs a countdown from a random number, and returns the
+          time needed for that countdown, along with the name of the input file. This output is then added to
+          a file in the home directory of the person who requested the process.
 
 
 Create GridCompute database
@@ -37,6 +38,7 @@ In this example, we are going to assume that you want to use a `Ubuntu server <h
    * host=27017, guest=27017 for access to Mongo database
 
 #. From host, connect to guest through ssh.
+
      | On Ubuntu: ``ssh -p 2222 GUEST_USERNAME@HOST_MACHINE_NAME``
      | On Windows: you can use a program such as `putty <http://www.chiark.greenend.org.uk/~sgtatham/putty/>`_
 
@@ -48,7 +50,7 @@ In this example, we are going to assume that you want to use a `Ubuntu server <h
 
 #. Install MongoDB per `instructions from MongoDB tutorial <http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/>`_.
 
-#. In file */etc/mongod.conf*, commant line *bindip [...]*
+#. In file */etc/mongod.conf*, comment line *bindip [...]*
 
 #. Run ``sudo service mongod start``
 
@@ -62,7 +64,7 @@ In this example, we are going to assume that you want to use a `Ubuntu server <h
    >>> db.createUser({user:"Group1", pwd:"gridcompute", roles:["readWrite"]})
    >>> quit()
 
-#. `Set up MongoDB server`_
+#. `Set up MongoDB server`_.
 
 
 Option 2: Use a specialized host
@@ -76,7 +78,7 @@ MongDB server instance can be hosted by a specialized website such as `Compose <
 
 #. Add the user you will use from *gridcompute*. For example, user *Group1* with password *gridcompute*.
 
-#. `Set up MongoDB server`_
+#. `Set up MongoDB server`_.
 
 
 Set up MongoDB server
@@ -86,11 +88,11 @@ The main purpose is only to define what version of gridcompute can work with the
 
 .. note:: This section is optional. If you don't set up the database, a warning message will appear to notify you that the program version is not controlled by the server but the program will still work.
 
-#. Open script *source/admin/database_management.py*
+#. Open script *source/admin/database_management.py*.
 
-#. Edit the variables under ``if __name__ == "__main__"``
+#. Edit the variables under ``if __name__ == "__main__"``.
 
-#. Run the script with **python 3**
+#. Run the script with **python 3**.
 
 
 Set-up of GridCompute
@@ -99,10 +101,10 @@ Set-up of GridCompute
 Before starting the program, you should follow these steps:
 
 #. Download `latest version of GridCompute binary <https://github.com/borisd13/GridCompute/releases>`_. Choose the version associated to your OS.
-#. Create a shared folder accessible (read and write) to every person that will use the program
+#. Create a shared folder accessible (read and write) to every person that will use the program.
 #. Copy folder *template/Shared_Folder* from `source code <https://github.com/borisd13/GridCompute>`_ to the shared folder you are going to use with *GridCompute*.
-#. At the root folder of *GridCompute* executable, there should be a file *server.txt*. Open it and copy the path to *GridCompute* shared folder (*Shared_Folder* path if you used the template).
-#. Edit *settings.txt* from the template folder with your applicable parameters (refer to :ref:`settings.txt specifications <settings_specs>`)
+#. At the root folder of *GridCompute* executable, there should be a file *server.txt*. Open it and copy the path to *GridCompute* shared folder. Ex: ``\\Server010\...\Shared_Folder``.
+#. Edit *settings.txt* from the template folder with applicable parameters (refer to :ref:`settings.txt specifications <settings_specs>`)
 #. Edit *Software_Per_Machine.csv* from the template folder (for more details refer to :ref:`Software_Per_Machine.csv specifications <software_per_machine_specs>`):
 
   - Add the name of your machine in the first column
@@ -126,3 +128,5 @@ The following section will give you a brief overview of the program.
 #. While process are running, click on *refresh now* to see their status.
 #. Go to the tab *my processes* to see what is happening on your computer.
 #. *Random Counter* demo application has been set-up so that outputs are added to the file *gridcompute_output.txt* present in your home folder.
+
+
