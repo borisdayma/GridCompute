@@ -19,5 +19,6 @@ Contents
    tutorial
    specifications
    development
+   code
    license
 

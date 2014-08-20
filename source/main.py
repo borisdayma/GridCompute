@@ -1,4 +1,6 @@
-'''Start-up script'''
+'''This module is the start-up script used to launch *GridCompute*.
+
+It first ensures that there is only one instance running, then creates the interface and initializes all parameters required to run the program. To finish, it runs the main loop associated to interface.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -30,12 +32,13 @@ import psutil
 import datetime
 
 def start(gui, current_pid):
-    '''
-    Start program
+    '''Start the program.
+
+    Ensures there is only one instance, initialize all server related parameters and populate interface.
     
     Args:
-        gui: GUI instance handling program interface
-        current_pid: pid of main thread'''
+        gui (GUI): GUI instance handling program interface.
+        current_pid (int): pid of main thread.'''
 
     ensure_single_instance(current_pid, gui.event_queue)
     server = server_management.Server(gui.event_queue, gui.dedicated_process)
@@ -43,13 +46,13 @@ def start(gui, current_pid):
     gui.event_queue.put({'type':'populate'})  # populate GUI when all actions are processed
 
 def ensure_single_instance(current_pid, event_queue):
-    '''Ensure that only one instance of program is running.
+    '''Ensure that only one instance of the program is running.
     
-    Check current pid against a configuration file that should contains pid of any running instance.
+    Check current pid against a configuration file that will contain pid of other running instance if any.
     
     Args:
-        current_pid: pid of current process
-        event_queue: queue of events to process by gui'''
+        current_pid (int): pid of current process.
+        event_queue (Queue): queue of events to process by gui.'''
 
     if config.pid_file.is_file():
         with config.pid_file.open() as f:
@@ -76,7 +79,3 @@ if __name__ == "__main__":
     gui.root.mainloop()    # Capture events
 
 
-
-
-
-    

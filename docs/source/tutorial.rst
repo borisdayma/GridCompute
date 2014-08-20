@@ -1,5 +1,5 @@
-Tutorial
-========
+Main code layout
+================
 
 .. note:: This section only intends to give a quick presentation of GridCompute through the
           use of a (not very useful) demo application *Random Counter*. This application takes a file as input,
@@ -126,5 +126,3 @@ The following section will give you a brief overview of the program.
 #. While process are running, click on *refresh now* to see their status.
 #. Go to the tab *my processes* to see what is happening on your computer.
 #. *Random Counter* demo application has been set-up so that outputs are added to the file *gridcompute_output.txt* present in your home folder.
-
-TODO: add pictures

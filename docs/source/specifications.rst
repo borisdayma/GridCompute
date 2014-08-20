@@ -39,7 +39,9 @@ This shared folder has following architecture:
   - settings.txt: contains parameters of database on each line under the form: "parameter name: value". Parameters to define are the following:
 
     - mongodb server: address of the mongo instance including connection port containing gridcompute database
+
         Ex:  'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
+
     - user group: login used to connect on mongo database
     - password: password used to connect on mongo database
     - instance: data instance to consider. Example: "0" or "debug"
@@ -47,16 +49,23 @@ This shared folder has following architecture:
   - *Applications* folder
 
     - One file per application with unique ID (ex: *Software 1*).
-      Note: the folder name cannot contain a dot.
+      
+      .. warning:: The folder name cannot contain a dot.
+
       It contains:
 
-      - send.py: defines how to select input and send calculations
-      - process.py: function will run when analysis are executed based on input received and will create output files
-      - receive.py: function will run when output files are present on server
+      - send.py: defines how to select input and send calculations.
+      - process.py: function will run when analysis are executed based on input received and will create output files.
+      - receive.py: function will run when output files are present on server.
 
-- *Cases* folder: Contains one folder per user and inside, one folder per machine (so that user can see easily his files) storing each case study as a zip file containing all files/folders required
+      More details are provided in `Application-specific scripts`_
 
-- *Results* folder: Contains one folder per user and inside, one folder per machine storing each result as a zip file containing all files/folders required
+
+- *Cases* folder: Contains one folder per user and inside, one folder per machine (so that user can see easily his files) storing each case study as a zip file containing all files/folders required.
+
+- *Results* folder: Contains one folder per user and inside, one folder per machine storing each result as a zip file containing all files/folders required.
+
+.. note:: A template folder is present in source code in *template* folder and can be used to set up the shared folder.
 
 
 Architecture of Mongo Database
@@ -103,9 +112,7 @@ Application-specific scripts
 
 Applications can easily take advantage of distributed computing by creating 3 scripts, as detailed in following sections.
 
-- receive.py: this script is executed in a temporary folder. Its input is the (ordered) list of output files returned in “process.py” script. At the end of execution, the temporary folder is deleted.
-
-Some examples are present in *template/Shared_Folder/Settings/Applications*.
+.. note:: Some examples are present in *template/Shared_Folder/Settings/Applications*.
 
 
 send.py
@@ -127,47 +134,8 @@ receive.py
    :members:
 
 
-Code layout
-***********
+Main code layout
+****************
 
-The source code of *GridCompute* is split into a few modules.
+For details on *GridCompute* source code, refer to :doc:`code`.
 
-
-main.py
--------
-
-.. automodule:: main
-   :members:
-
-g_config.py
------------
-
-.. automodule:: g_config
-   :members:
-
-g_interface.py
---------------
-
-.. automodule:: g_interface
-   :members:
-
-g_server_management.py
-----------------------
-
-.. automodule:: g_server_management
-   :members:
-
-database_management.py
-----------------------
-
-.. automodule:: database_management
-   :members:
-
-setup.py
---------
-.. automodule:: setup
-   :members:
-
-TODO: Talk about server_template. 
-
-TODO: This section needs to be completed by including source code documentation with autodoc.

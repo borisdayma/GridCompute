@@ -35,10 +35,10 @@ def process_case(input_files):
     copied.
     
     Args:
-        input_files: ordered list (or tuple) of input files path
+        input_files (str list): ordered list (or tuple) of input files path.
         
     Returns:
-        An ordered list (or tuple) of output files to return to the server.
+        str list: An ordered list (or tuple) of output files to return to the server.
     """
 
     # In this example, we will count down from a random number. The output will be a single file which

@@ -62,10 +62,13 @@ To build the application:
 Build documentation
 *******************
 
-Documentation is generated through the use of `sphinx <http://sphinx-doc.org/>`_. To build documentation:
+Documentation is generated through the use of `sphinx <http://sphinx-doc.org/>`_. To build documentation, you need to install following requirements:
 
-* Install sphinx with pip
-* Go to *docs* folder and run ``make html``
+>>> pip3 install sphinx
+>>> pip3 install sphinxcontrib-napoleon
+>>> pip3 install sphinx-rtd-theme
+
+You can then go to *docs* folder and run ``make html``.
 
 
 Execute application

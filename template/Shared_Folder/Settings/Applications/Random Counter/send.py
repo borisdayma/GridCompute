@@ -23,14 +23,14 @@
 def select_input_files(filepath):
     """Submit a case to the grid.
     
-    This function returns, from a selected file, one or several cases to run. Each case can be made
-    of several input files.
+    This function returns, from a selected file, one or several cases to run.
+    Each case can be made of several input files.
     
     Args:
-        filepath: path of the file selected
+        filepath (str): Path of the file selected.
         
     Returns:
-        A list of cases. Each case is a list (or tuple) of input files required to process a case
+        str list: A list (or tuple) of cases. Each case is a list (or tuple) of input files required to process a case.
     """
 
     # In this example, only one case is returned, and that case contains only one file (the file selected)

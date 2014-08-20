@@ -32,7 +32,10 @@ def receive_case(output_files):
     Process is executed in a temporary folder where all files are copied.
     
     Args:
-        output_files: ordered list (or tuple) of output files path
+        output_files (str list): ordered list (or tuple) of output files path.
+
+    Returns:
+        None.
     """
 
     # In this example, we know that the output is a single file which contains file size of all inputs
