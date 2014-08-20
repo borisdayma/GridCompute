@@ -137,5 +137,5 @@ receive.py
 Main code layout
 ****************
 
-For details on *GridCompute* source code, refer to :doc:`code`.
+For details on *GridCompute* source code layout,  refer to :doc:`code`.
 
