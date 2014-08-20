@@ -1,7 +1,7 @@
 '''This module gathers configuration variables used in the other modules.
 
 It is used to share global variables and edit configuration variables easier.
-
+ 
 Attributes:
           program_name: Name of the program.
           version: Current version.

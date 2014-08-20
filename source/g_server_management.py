@@ -1,5 +1,5 @@
 '''This module contains all server related functionalities.
-
+ 
 It creates server variables associated to file server and mongo database
 and handle the communication with them.'''
 

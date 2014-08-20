@@ -1,5 +1,5 @@
 '''This module is the start-up script used to launch *GridCompute*.
-
+ 
 It first ensures that there is only one instance running, then creates the interface and initializes all parameters required to run the program. To finish, it runs the main loop associated to interface.'''
 
 # Copyright 2014 Boris Dayma

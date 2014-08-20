@@ -1,5 +1,5 @@
 '''This script is used for building the executuble with cx_Freeze.
-
+ 
 Please refer to the section "Development" of the documentation for building the application.'''
 
 # Copyright 2014 Boris Dayma

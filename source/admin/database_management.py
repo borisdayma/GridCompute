@@ -1,5 +1,5 @@
 '''This module contains administrator functions for database management.'''
-
+ 
 # Copyright 2014 Boris Dayma
 # 
 # This file is part of GridCompute.

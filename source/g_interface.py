@@ -1,5 +1,5 @@
 '''This module contains all GUI functionalities.
-
+ 
 It generates the main interface and handles any event that needs to be
 communicated to the user.'''
 
