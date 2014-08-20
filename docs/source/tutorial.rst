@@ -1,5 +1,5 @@
-Main code layout
-================
+Tutorial
+========
 
 .. note:: This section only intends to give a quick presentation of GridCompute through the
           use of a (not very useful) demo application *Random Counter*. This application takes a file as input,
