@@ -32,7 +32,9 @@ class Mock(MagicMock):
     def __getattr__(cls, name):
             return Mock()
 
-MOCK_MODULES = ['tkinter', 'cx_Freeze']
+MOCK_MODULES = ['tkinter', 'tkinter.filedialog', 'tkinter.font',
+                'tkinter.messagebox', 'tkinter.scrolledtext',
+                'tkinter.ttk', 'cx_Freeze']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # If your documentation needs a minimal Sphinx version, state it here.
