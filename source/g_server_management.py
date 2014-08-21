@@ -1,4 +1,7 @@
-'''Server related functionalities'''
+'''This module contains all server related functionalities.
+ 
+It creates server variables associated to file server and mongo database
+and handle the communication with them.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -6,8 +9,7 @@
 # 
 # GridCompute is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# the Free Software Foundation, version 3 of the License.
 # 
 # GridCompute is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +17,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
@@ -44,7 +46,10 @@ import g_config as config
 class Server:
     '''Class handling server-related functionalities.
 
-    File server address is taken from "server.txt" present at root of program.
+    File server path is taken from "server.txt" present at root of program.  Settings are taken from
+    "settings.txt" present on the file server.
+    
+    Server properties are set at initialization.
 
     Args:
         event_queue: queue of events to process by gui
@@ -56,21 +61,24 @@ class Server:
         app_path: path of applications-specific scripts
         settings_path: path of settings.txt file
         settings: list of settings from settings.txt on file server including:
-                mongodb server: Address of the mongo instance including connection port containing
-                              "gridcompute" database.
-                              Example: 'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
-                user group: Login used to connect on mongo database.
-                password: Password used to connect on mongo database.
-                instance: Data instance to consider. Example: "0" or "debug"
+
+                  - mongodb server: Address of the mongo instance including connection port containing
+                    "gridcompute" like ``mongodbserver.com:888`` or ``10.0.0.1:888`` or ``Machine123:888``.
+                  - user group: Login used to connect on mongo database.
+                  - password: Password used to connect on mongo database.
+                  - instance: Data instance to consider like ``0`` or ``debug``.
+
         mongodb: Connection to mongo database
-        server_functions: Dictionary of application-specific scripts. The key is application name and values are:
-                        path: path of application folder
-                        send, process, receive: booleans corresponding to existence of these functions
+        server_functions: Dictionary of application-specific scripts. The key is application name and value is
+                        a dictionary of following keys:
+
+                        - path: path of application folder
+                        - send, process, receive: booleans corresponding to existence of these functions
+
         software_allowed_to_run: set of applications that can run as defined in "Software_Per_Machine.csv"
     '''
 
     def __init__(self, event_queue, dedicated_process):
-        ''' Initialize server properties '''
         
         self.event_queue = event_queue
         self.gui_dedicated_process = dedicated_process
@@ -108,12 +116,12 @@ class Server:
         self.create_daemons()  # daemons can start
 
     def notify_number_process_daemon(self, *args):
-        '''Notify the daemon process of change of number of processes selected in GUI'''
+        '''Notify the daemon process of a change of number of processes selected in GUI.'''
 
         self.daemon_dedicated_process.value = int(self.gui_dedicated_process.get())
 
     def get_settings(self):
-        ''' Initialize settings variable from settings.txt '''
+        '''Initialize settings variable from "settings.txt" present on server.'''
 
         if not self.settings_path.is_file():
             self.event_queue.put({'type':'critical', 'message':'File settings.txt not found in Settings directory'})
@@ -133,7 +141,7 @@ class Server:
         return settings
 
     def access_mongodb(self):
-        ''' Access the mongo database "gridcompute" '''
+        '''Access the mongo database.'''
 
         try:
             mongodb = pymongo.MongoClient("{}".format(self.settings['mongodb server'])).gridcompute
@@ -151,9 +159,9 @@ class Server:
         return mongodb
 
     def handle_software_permissions(self):
-        ''' Verifies that mongo database allows current version of program to run.
+        '''Verify that mongo database allows current version of program to run.
         
-        Based on collection "versions" from mongo database.
+        This is based on the collection "versions" present in mongo database.
         If "versions" collection is not present, a warning is displayed.'''
 
         if 'versions' not in self.mongodb.collection_names():
@@ -173,7 +181,7 @@ class Server:
             self.event_queue.put({'type':'info', 'message':'Current version of program is valid'})
 
     def scan_applications(self):
-        ''' Scan application specific scripts '''
+        '''Scan application specific scripts present on file server.'''
 
         application_folders = (folder for folder in self.app_path.glob("*") if folder.is_dir())
         applications = ({folder.name : {"path" : folder, "send" : (folder / "send.py").is_file(),
@@ -184,25 +192,29 @@ class Server:
         return applications
 
     def applications_with_send(self):
-        ''' Return a dictionary of applications that have a send function.
-        Key is application name. Value is script path.'''
+        '''Return a dictionary of applications that have a send function.
+
+        The key is the application name and the value is the script path.'''
 
         return {app : (self.server_functions[app]["path"] / "send.py") for app in self.server_functions if self.server_functions[app]["send"]}
 
     def applications_with_process(self):
-        ''' Return a dictionary of applications that have a process function.
-        Key is application name. Value is script path.'''
+        '''Return a dictionary of applications that have a process function.
+
+        The key is the application name and the value is the script path.'''
 
         return {app : (self.server_functions[app]["path"] / "process.py") for app in self.server_functions if self.server_functions[app]["process"]}
 
     def applications_with_receive(self):
-        ''' Return a dictionary of applications that have a receive function.
-        Key is application name. Value is script path.'''
+        '''Return a dictionary of applications that have a receive function.
+
+        The key is the application name and the value is the script path.'''
 
         return {app : (self.server_functions[app]["path"] / "receive.py") for app in self.server_functions if self.server_functions[app]["receive"]}
 
     def get_software_allowed_to_run(self):
-        ''' Return list of software allowed to run on this machine per Software_Per_Machine.csv '''
+        '''Return the list of software allowed to run on this machine per "Software_Per_Machine.csv"
+        present on file server.'''
 
         self.event_queue.put({'type':'info', 'message':'Obtaining software allowed to run on this machine'})
         self.event_queue.put({'type':'info', 'message':'Machine identified as "{}"'.format(platform.node())})
@@ -222,11 +234,13 @@ class Server:
             return set()
 
     def create_daemons(self):
-        ''' Create daemons required in the application
+        '''Create daemons required in the application.
         
         Two daemons are created:
-            Daemon process: scans database to check if there are new calculations to perform (if number of processes selected allows it)
-            Daemon receive: scans database to check if there are new results to receive'''
+            
+            - Daemon process: scans continuously database to check if there are new calculations to
+              perform (if number of processes selected allows it).
+            - Daemon receive: scans continuously database to check if there are new results to receive.'''
 
         multiprocessing.Process(target=run_daemon_receive,
                                args=(self.applications_with_receive(),
@@ -246,13 +260,13 @@ class Server:
         self.event_queue.put({'type':'info', 'message':'Created daemons'})
 
     def submit_to_server(self, cases_to_submit, application, keep_running = True):
-        ''' Submit cases to server.
+        '''Submit cases to the server.
         
-        Input files are zipped and copied to file server. Cases are entered in mongo database.
+        Input files are zipped and copied to the file server. Cases are entered in mongo database.
         
         Args:
-            cases_to_submit: List of cases. Each case is a list of input files associated to a case
-            application: Application associated to input files
+            cases_to_submit: List of cases. Each case is a list of input files associated to a case.
+            application: Application associated to input files.
             keep_running: Argument that can be associated to the state of a variable.
                         When this variable is False, function ends.
                         It is used to catch when user closes the progress window.'''
@@ -376,9 +390,9 @@ class Server:
         self.event_queue.put({'type':'log_file_only', 'message':'Added cases to interface'})
 
     def refresh_my_cases(self, keep_running = True):
-        '''Refresh frame 'my cases' tab.
+        '''Refresh "my cases" list.
         
-        Access mongo database to display all my cases that have not been totally processed yet (ie not received by user)
+        Access mongo database to display all user cases that have not been totally processed yet (ie not received by user).
 
         Args:
             keep_running: Argument that can be associated to the state of a variable.
@@ -412,7 +426,7 @@ class Server:
     def create_report(self, file_report, keep_running = True):
         '''Create a report of cases present on database.
 
-        Displays cases and their details from database, limited to the ones from same "user group".
+        Display cases and their details from database, limited to the ones from same "user group".
 
         Args:
             keep_running: Argument that can be associated to the state of a variable.
@@ -491,10 +505,10 @@ class Server:
         self.event_queue.put({'type':'exit'})
 
 def check_quit_program(exit_program):
-    '''Daemons check if they need to terminate and kill their child processes
+    '''Function used by daemons to check if they need to terminate and kill their child processes.
     
     Args:
-        exit_program: variable scanned by daemons to know when to exit'''
+        exit_program: Variable scanned by daemons to know when to exit.'''
     
     if exit_program.is_set():
         for p in multiprocessing.active_children():
@@ -504,15 +518,15 @@ def check_quit_program(exit_program):
         raise SystemExit
 
 def refresh_status_daemon_process(alive_process, dedicated_process, event_queue, exit_program, gui_answer, paused_process):
-    '''Performs refresh of status variables of daemon process.
+    '''Refresh status variables used by daemon process.
     
     Args:
-        alive_process: list of process
-        dedicated_process: number of dedicated process selected in gui
-        event_queue: queue of events to process by gui
-        exit_program: variable scanned by daemons to know when to exit
-        gui_answer: notify when gui answered a question
-        paused_process: list of process currently on pause
+        alive_process: List of processes alive.
+        dedicated_process: Number of dedicated process selected in gui.
+        event_queue: Queue of events to process by gui.
+        exit_program: Variable scanned by daemons to know when to exit.
+        gui_answer: Notify when gui answered a question.
+        paused_process: List of processes currently on pause.
     '''
     
     check_quit_program(exit_program)
@@ -550,7 +564,7 @@ def refresh_status_daemon_process(alive_process, dedicated_process, event_queue,
             alive_process.remove(p)
 
 def run_daemon_process(applications_with_process, dedicated_process, event_queue, exit_program, gui_answer, server_path, settings, software_allowed_to_run):
-    '''Daemon process that launches new processes when possible.
+    '''Run "daemon process" that launches new processes when possible.
     
     Daemon process runs continuously and check on database if processes are available to launch when user allows it.
     
@@ -682,10 +696,10 @@ def launch_process(case, event_queue, server_path, settings):
     Mongo database is updated when process finishes.
     
     Args:
-        case: case to process obtained from mongo database
-        event_queue: queue of events to process by gui
-        server_path: path of file server as defined in "server.txt" file
-        settings: list of settings from settings.txt on file server
+        case: case to process obtained from mongo database.
+        event_queue: queue of events to process by gui.
+        server_path: path of file server as defined in "server.txt" file.
+        settings: list of settings from settings.txt on file server.
     '''
 
     event_queue.put({'type':'log_file_only', 'message':'Launching case {}'.format(case['_id'])})
@@ -786,16 +800,16 @@ def launch_process(case, event_queue, server_path, settings):
     event_queue.put({'type':'log_file_only', 'message':'Processed case {}'.format(case['_id'])})
 
 def run_daemon_receive(applications_with_receive, event_queue, exit_program, server_path, settings):
-    '''Daemon receive retrieves back cases from server after they have been processed.
+    '''Run "daemon receive" that retrieve back cases from server after they have been processed.
     
     Daemon receive runs continuously and check on database if output files are available.
     
     Args:
-        applications_with_receive: dictionary of applications that have a process function
-        event_queue: queue of events to process by gui
-        exit_program: variable scanned by daemons to know when to exit
-        server_path: path of file server as defined in "server.txt" file
-        settings: list of settings from settings.txt on file server
+        applications_with_receive: dictionary of applications that have a process function.
+        event_queue: queue of events to process by gui.
+        exit_program: variable scanned by daemons to know when to exit.
+        server_path: path of file server as defined in "server.txt" file.
+        settings: list of settings from settings.txt on file server.
     '''
 
     if not len(applications_with_receive):

@@ -1,4 +1,7 @@
-'''GUI functionalities'''
+'''This module contains all GUI functionalities.
+ 
+It generates the main interface and handles any event that needs to be
+communicated to the user.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -6,8 +9,7 @@
 # 
 # GridCompute is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# the Free Software Foundation, version 3 of the License.
 # 
 # GridCompute is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +17,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
@@ -34,13 +36,16 @@ import g_config as config
 
 
 class GUI:
-    '''Class handling GridCompute interface
+    '''
+    Class handling GridCompute interface.
+
+    It contains every parameter and module required for GUI. At creation, it displays a progress bar.
 
     Args:
         root: main Tk instance
         application: application selected in gui
         app_combobox: widget associated with application
-        cases_dict: dictionary where key is the id of tree item and value
+        cases_dict (dict): dictionary where key is the id of tree item and value
                   is the list of input files associated to the case
         cases_refresh_label: label identifying time of refresh of "my cases"
         cases_status_label: label identifying status of refresh of "my cases"
@@ -48,7 +53,7 @@ class GUI:
         event_queue: queue of events to process by gui
         init_label, init_progress: elements used only at GridCompute start
         log: gui element associated to logging
-        my_process_pid_id: dictionary of pid to gui id for treeview in "my processes"
+        my_process_pid_id (dict): dictionary of pid to gui id for treeview in "my processes"
         progress_bar: progress bar in progress window
         progress_label: text present on progress window
         progress_window: top level window showing progress of current task
@@ -60,7 +65,6 @@ class GUI:
     '''
 
     def __init__(self):
-        ''' Initialize interface properties and displays a progress bar '''
 
         # Create and name main window
         self.root = tk.Tk()
@@ -114,12 +118,15 @@ class GUI:
         self.root.after(config.gui_refresh_interval, self.refresh)  # launch refresh of GUI
 
     def link_server(self, server):
-        '''Associate GUI to instance Server'''
+        '''Associate GUI to a Server instance.
+        
+        Args:
+            server: Server instance.'''
 
         self.server = server
         
     def populate(self):
-        '''Populate GUI during loading of program'''
+        '''Populate GUI during loading of program.'''
 
         # Delete initialization widgets
         self.init_label.destroy()
@@ -280,7 +287,7 @@ class GUI:
         self.event_queue.put({'type':'log_file_only', 'message':'Populated gui'})
 
     def refresh(self):
-        ''' Refresh GUI at regular intervals '''
+        '''Refresh GUI at regular intervals.'''
 
         try:
             while True:
@@ -292,7 +299,7 @@ class GUI:
         self.root.after(config.gui_refresh_interval, self.refresh)
 
     def exit_program(self):
-        ''' Exit program '''
+        '''Communicate to processes to exit program.'''
 
         if self.askokcancel('Do you really wish to quit?'):
             self.event_queue.put({'type':'log_file_only', 'message':'User asked to exit application'})
@@ -300,15 +307,16 @@ class GUI:
             threading.Thread(target=self.server.exit_processes).start()
 
     def create_progress_window(self, progress_mode, progress_text, progress_max = 100):
-        '''Create a progress window
+        '''
+        Create a progress window.
 
         The progress window can be controlled afterwards through the event_queue parameter.
         Refer to function "handle_next_event".
 
         Args:
-            progress_mode: "determinate" if progress level evolution needs to be controlled or "indeterminate"
-            progress_text: text displayed initially on the progress window
-            progress_max: argument equal to maximal progress value when complete
+            progress_mode (str): "determinate" if progress level evolution needs to be controlled or "indeterminate".
+            progress_text (str): text displayed initially on the progress window.
+            progress_max (int): argument equal to maximal progress value when complete.
         '''
 
         self.progress_window = tk.Toplevel(self.root)
@@ -324,23 +332,43 @@ class GUI:
             self.progress_bar.start()
 
     def error(self, msg):
-        ''' Display error on screen '''
+        '''Display error on screen.
+        
+        Args:
+            msg (str): Message to be displayed.'''
+
         tk.messagebox.showerror(title = config.title_windows, message = msg, parent = self.root)
 
     def warning(self, msg):
-        ''' Display warning on screen '''
+        '''Display warning on screen
+        
+        Args:
+            msg (str): Message to be displayed.'''
+
         tk.messagebox.showwarning(title = config.title_windows, message = msg, parent = self.root)
 
     def info(self, msg):
-        ''' Display info on screen '''
+        '''Display info on screen
+        
+        Args:
+            msg (str): Message to be displayed.'''
+
         tk.messagebox.showinfo(title = config.title_windows, message = msg, parent = self.root)
 
     def askokcancel(self, msg):
-        ''' Ask a question to user and returns "True" or "False" depending on user input'''
+        '''Ask a question to user.
+        
+        Args:
+            msg (str): Message to be displayed.
+
+        Returns:
+            bool: True if user enters "ok", False otherwise.
+        '''
+
         return tkinter.messagebox.askokcancel(title = config.title_windows, message = msg, parent = self.root)
         
     def add_cases(self):
-        ''' User pressed the add cases button '''
+        '''Display a window to select cases to submit to server and adds them on the list.'''
 
         # check a task is not already running
         if self.progress_window:
@@ -362,7 +390,8 @@ class GUI:
                             args=(files_selected, self.application.get(), self.progress_window)).start()
 
     def create_report(self):
-        ''' User wants a report from database of his "user group" '''
+        '''Create a full report from database containing all cases from same "user group".
+        Ask user where he wants to save the report.'''
 
         # check a task is not already running
         if self.progress_window:
@@ -381,7 +410,7 @@ class GUI:
                         args=(file_report, self.progress_window)).start()
 
     def remove_selected(self):
-        ''' User wants to remove cases to submit in GUI '''
+        '''Removes selected cases to submit from the list.'''
 
         self.event_queue.put({'type':'log_file_only', 'message':'User requests to remove cases from "send cases" tab'})
         
@@ -394,7 +423,7 @@ class GUI:
             self.app_combobox['state'] = 'readonly'
 
     def submit_to_server(self):
-        ''' Send all cases (not yet submitted) from the list to the server '''
+        '''Send all cases (not yet submitted) from the list to the server.'''
 
         # check a task is not already running
         if self.progress_window:
@@ -424,15 +453,15 @@ class GUI:
                         args=(cases_to_submit, self.application.get(), self.progress_window)).start()
 
     def open_help(self):
-        ''' User clicked on menu help '''
-        self.info('For any questions, please contact Boris Dayma at boris.dayma@gmail.com')
+        '''Display a help message.'''
+        self.info('For more information, please consult the documentation at\ngridcompute.readthedocs.org')
 
     def open_about(self):
-        ''' User clicked on menu about '''
+        '''Display program information.'''
         self.info('{} version {}\n{}'.format(config.program_name, config.version, config.copyright))
 
     def open_license(self):
-        ''' User clicked on menu license '''
+        '''Display licenses used by the program.'''
 
         # Display all licenses
         license_window = tk.Toplevel(self.root)
@@ -465,7 +494,9 @@ class GUI:
         license_text['state']='disabled'
 
     def refresh_my_cases(self):
-        ''' Refresh list of my cases '''
+        '''Refresh the list of "my cases".
+        
+        Access database and display details of user cases that have not been received yet.'''
 
         # check a task is not already running
         if self.progress_window:
@@ -487,30 +518,32 @@ class GUI:
                         args=(self.progress_window,)).start()
 
     def handle_next_event(self):
-        '''Handle the next event from event_queue.
+        '''      
+        Handles the next event from communicated to the GUI through event_queue variable.
         
-        Each element in event_queue is a dictionary. Action performed depends on 'type' value:
-            log_file_only: log a message in the log file, no display in gui
-            warning: display a warning
-            info: display an information in gui, optionally creating an info box
-            error: display an error
-            critical: display an error and exit program
-            change progress max: change value of progress window corresponding to completion
-            change progress: modify progress bar level and text
-            close progress: close progress window
-            add case: add a case in "send cases" tab
-            submitted case: show a case as submitted
-            terminate process?: ask user if he wants to terminate all processes
-                             send answer through the connection pipe to daemon process
-            add my case: add a case in "my cases" tab
-            add my process: add a process in "my processes" tab
-            remove my process: remove a process from "my processes" tab
-            change my process: change the status of a process in "my processes" tab
-            populate: GUI can be fully populated
-            exit: close main window
+        Each element in event_queue is a dictionary. Action performed depends on value of *type* key:
+    
+            - log_file_only: log a message in the log file, no display in gui
+            - warning: display a warning
+            - info: display an information in gui, optionally creating an info box
+            - error: display an error
+            - critical: display an error and exit program
+            - change progress max: change value of progress window corresponding to completion
+            - change progress: modify progress bar level and text
+            - close progress: close progress window
+            - add case: add a case in "send cases" tab
+            - submitted case: show a case as submitted
+            - terminate process?: ask user if he wants to terminate all processes
+            -                  send answer through the connection pipe to daemon process
+            - add my case: add a case in "my cases" tab
+            - add my process: add a process in "my processes" tab
+            - remove my process: remove a process from "my processes" tab
+            - change my process: change the status of a process in "my processes" tab
+            - populate: GUI can be fully populated
+            - exit: close main window
 
-        Exceptions:
-            queue.empty: event_queue is empty
+        Raises:
+            queue.empty: event_queue is empty, there are no more events to process.
         '''
 
         action = self.event_queue.get_nowait()
@@ -604,9 +637,10 @@ class GUI:
                                  'message':'"type" value not recognized in "event_queue": {}'.format(action['type'])})
 
 def init_log():
-    '''Initialize logging in file
+    '''
+    Initialize logging in file.
     
-    Create directory structure and remove previous log file'''
+    Create necessary directory structure and remove previous log file.'''
     
     try:
         os.remove(str(config.log_path))
@@ -615,12 +649,14 @@ def init_log():
     os.makedirs(str(config.log_path.parent), exist_ok = True)
 
 def write_log(log_message, gui_log = None):
-    '''Display log messages in GUI write in log file
+    '''
+    Write log messages in log file and in GUI.
     
     Args:
-        log_message: message to be displayed
-        gui_log: widget receiving log message
-               None if not displayed in gui'''
+        log_message: message to be displayed.
+        gui_log: widget receiving log message.
+               None if message not to be displayed in gui.
+    '''
 
     time = datetime.datetime.now()
     log_text = '{} - {}'.format(time.strftime('%X'), log_message)

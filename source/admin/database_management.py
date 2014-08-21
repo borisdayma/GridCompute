@@ -1,13 +1,12 @@
-'''Administrator functions for database management'''
-
+'''This module contains administrator functions for database management.'''
+ 
 # Copyright 2014 Boris Dayma
 # 
 # This file is part of GridCompute.
 # 
 # GridCompute is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# the Free Software Foundation, version 3 of the License.
 # 
 # GridCompute is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +14,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
@@ -26,20 +25,26 @@ import pymongo
 def set_up_mongodb_server(mongodb_server, login, password, versions):
     '''Sets up a mongodb server for GridCompute.
 
-    Mongo database "gridcompute" is set up to be ready for use by creating "versions" collection and indexes.
+    Mongo database "gridcompute" is initialized and the "versions" collection is created to specify
+    the program versions that are authorized by the database.
+
     The "gridcompute" database must be present on the server. Any collection in it will be removed.
 
     Args:
         mongodb_server: Address of the mongo instance including connection port containing
-                      "gridcompute" database.
-                      Example: 'mongodbserver.com:888' or '10.0.0.1:888' or 'Machine123:888'
+                      *gridcompute* database like ``mongodbserver.com:888`` or ``10.0.0.1:888``
+                      or ``Machine123:888``
         login: Login used to connect on mongo database.
         password: Password used to connect on mongo database.
-        versions: List of versions of gridcompute that the mongo database recognizes defined by
-                _id: version number (ex: '0.1')
-                status: either "allowed", "warning" or "refused"
-                message: message to be displayed when status is not "allowed"
-                example: [{'_id':'0.1', status:"warning", message:"this is a beta version used for test purposes only"}, {'_id':'1.0', status:"allowed"}]
+        versions: List of versions of gridcompute that the mongo database recognizes defined by:
+
+                  - _id: version number (ex: '0.1').
+                  - status: either "allowed", "warning" or "refused".
+                  - message: message to be displayed when status is not "allowed" like::
+                   
+                      [{'_id':'0.1', status:"warning", message:"Beta version},
+                       {'_id':'1.0', status:"allowed"}]
+
     '''
 
     # create new connection

@@ -1,4 +1,4 @@
-'''Template for processing cases received from the grid'''
+'''This script is used to process cases. Its input is the ordered list of files submitted in *send.py* script. At the end of execution, a list of output files is returned, which is submitted to the server.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -6,8 +6,7 @@
 # 
 # GridCompute is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# the Free Software Foundation, version 3 of the License.
 # 
 # GridCompute is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +14,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
@@ -35,10 +34,10 @@ def process_case(input_files):
     copied.
     
     Args:
-        input_files: ordered list (or tuple) of input files path
+        input_files (str list): ordered list (or tuple) of input files path.
         
     Returns:
-        An ordered list (or tuple) of output files to return to the server.
+        str list: An ordered list (or tuple) of output files to return to the server.
     """
 
     # In this example, we will count down from a random number. The output will be a single file which

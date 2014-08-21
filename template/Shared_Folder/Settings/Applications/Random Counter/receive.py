@@ -1,4 +1,4 @@
-'''Template for receiving cases that have been processed on the grid'''
+'''This script is used to receive cases that have been processed, ie to specify what we want to do with the output files returned from *process.py* script.'''
 
 # Copyright 2014 Boris Dayma
 # 
@@ -6,8 +6,7 @@
 # 
 # GridCompute is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# the Free Software Foundation, version 3 of the License.
 # 
 # GridCompute is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +14,7 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with GridCompute.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For any question, please contact Boris Dayma at boris.dayma@gmail.com
 
@@ -32,7 +31,10 @@ def receive_case(output_files):
     Process is executed in a temporary folder where all files are copied.
     
     Args:
-        output_files: ordered list (or tuple) of output files path
+        output_files (str list): ordered list (or tuple) of output files path.
+
+    Returns:
+        None.
     """
 
     # In this example, we know that the output is a single file which contains file size of all inputs
