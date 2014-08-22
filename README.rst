@@ -10,12 +10,4 @@ Please see below useful links.
 :Binaries:
     http://github.com/borisd13/GridCompute/releases
 
-For any question, please contact Boris Dayma at boris.dayma@gmail.com.
-
-
-Many thanks to:
-
-* Bruno Guigon
-* Vianney Da Costa
-
-
+For any question, please contact **Boris Dayma** at boris.dayma@gmail.com.

@@ -1,0 +1,5 @@
+Many thanks to below people who contributed to the development of the program:
+
+* Bruno Guigon
+* Vianney Da Costa
+
