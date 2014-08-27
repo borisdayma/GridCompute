@@ -1,5 +1,8 @@
-GridCompute is an open-source cross-platform tool that implements quickly distributed computing over a local grid. 
+GridCompute is an open-source cross-platform tool that implements quickly distributed computing over a local grid.
 
+The objective is to distribute resource intensive calculations over a local network to greatly reduce time needed, with a minimal work required for implementing it.
+
+It can be particularly useful for engineering companies or universities.
 
 Please see below useful links.
 
@@ -10,4 +13,5 @@ Please see below useful links.
 :Binaries:
     http://github.com/borisd13/GridCompute/releases
 
-For any question, please contact **Boris Dayma** at boris.dayma@gmail.com.
+
+For any question, please contact the author **Boris Dayma** at boris.dayma@gmail.com.
