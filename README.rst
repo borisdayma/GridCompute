@@ -14,4 +14,4 @@ Please see below useful links.
     http://github.com/borisd13/GridCompute/releases
 
 
-For any question, please contact the author **Boris Dayma** at boris@dayma.cc
+For any question, please contact the author **Boris Dayma** at boris.dayma@gmail.com
